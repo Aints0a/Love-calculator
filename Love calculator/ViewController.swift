@@ -18,8 +18,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextView!
     var randNum = 0
-    let hisname = "Rabe"
-    let herName = "Rasoa"
     let fightingCoupleImage = UIImage(named: "fightingCouple")
     let loveCouplesImage = UIImage(named: "loveCouplesImage")
     let notBadCoupleImage = UIImage(named: "notBadCouple")
@@ -31,19 +29,30 @@ class ViewController: UIViewController {
         textView.backgroundColor = .clear
         textView.text = "Fill the names then click the button to see your compatibility. Good luck!"
         // Do any additional setup after loading the view.
-       
-//        resultTextView.text = "Fill the name and click the button to check your compatibility."
-        
+               
     }
     
-    
+
 
     @IBAction func resultButton(_ sender: UIButton) {
         
-    
-        let hisName = name1TextField.text!
-        let herName = name2TextField.text!
-        
+            
+        guard let hisName = name1TextField.text, !hisName.isEmpty else {
+            textView.text = "Please enter your name in the first field."
+            return
+        }
+        guard let herName = name2TextField.text, !herName.isEmpty else {
+            textView.text = "Please enter your partner's name in the second field."
+            return
+        }
+        guard hisName.rangeOfCharacter(from: CharacterSet.letters.inverted) == nil else {
+            textView.text = "Please enter a valid name in the first field."
+            return
+        }
+        guard herName.rangeOfCharacter(from: CharacterSet.letters.inverted) == nil else {
+            textView.text = "Please enter a valid name in the second field."
+            return
+        }
         
         randNum = Int.random(in: 1...10)
         print (randNum)
@@ -61,7 +70,7 @@ class ViewController: UIViewController {
                         
                     } else {
                         print("You are made to be together. Congratulation\(hisName) and \(herName)")
-                        textView.text = "You are made to be together. Congratulation  and !!"
+                        textView.text = "You are made to be together. Congratulation \(hisName)  and \(herName)!!"
                         resultImageView.image = loveCouplesImage
 
             
